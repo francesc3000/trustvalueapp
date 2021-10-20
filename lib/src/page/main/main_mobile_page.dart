@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class MainMobilePage extends StatefulWidget {
   const MainMobilePage({required Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class MainMobilePage extends StatefulWidget {
 
 class _MainMobilePageState extends State<MainMobilePage> {
   late ScrollController _scrollController;
+  late YoutubePlayerController _controller;
 
   double get _imgHeight => MediaQuery.of(context).size.height;
   double get _imageWidth => MediaQuery.of(context).size.width;
@@ -26,6 +29,25 @@ class _MainMobilePageState extends State<MainMobilePage> {
   void initState() {
     _scrollController = ScrollController();
     super.initState();
+
+    _controller = YoutubePlayerController(
+      initialVideoId: 'MRMPofkN3pM',
+      params: const YoutubePlayerParams(
+        enableCaption: false,
+        showControls: false,
+        showFullscreenButton: true,
+        desktopMode: false,
+        privacyEnhanced: true,
+        useHybridComposition: true,
+        showVideoAnnotations: false,
+      ),
+    );
+    _controller.onEnterFullscreen = () {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+    };
   }
 
   @override
@@ -90,7 +112,7 @@ class _MainMobilePageState extends State<MainMobilePage> {
               addAutomaticKeepAlives: false,
               controller: _scrollController,
               children: <Widget>[
-                SizedBox(height: _imgHeight), // IMP STEP 1..
+                SizedBox(height: _imgHeight),
                 Container(
                   color: Colors.white,
                   width: _imageWidth,
@@ -145,6 +167,27 @@ class _MainMobilePageState extends State<MainMobilePage> {
                         child: Image.asset('assets/images/345.png'),
                       ),
                     ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.white),
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  width: _imageWidth / 2,
+                  height: _imgHeight / 2,
+                  child: SizedBox(
+                    width: _imageWidth / 2,
+                    height: _imgHeight / 2,
+                    child: YoutubePlayerControllerProvider( // Provides controller to all the widget below it.
+                      controller: _controller,
+                      child: YoutubePlayerIFrame(
+                        aspectRatio: 16 / 9,
+                      ),
+                    ),
                   ),
                 ),
                 Container(

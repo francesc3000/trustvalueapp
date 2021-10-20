@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class MainDesktopPage extends StatefulWidget {
   const MainDesktopPage({required Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class MainDesktopPage extends StatefulWidget {
 
 class _MainDesktopPageState extends State<MainDesktopPage> {
   late ScrollController _scrollController;
+  late YoutubePlayerController _controller;
 
   double get _imgHeight => MediaQuery.of(context).size.height;
   double get _imageWidth => MediaQuery.of(context).size.width;
@@ -26,6 +29,26 @@ class _MainDesktopPageState extends State<MainDesktopPage> {
   void initState() {
     _scrollController = ScrollController();
     super.initState();
+
+    _controller = YoutubePlayerController(
+      initialVideoId: 'MRMPofkN3pM',
+      params: const YoutubePlayerParams(
+        // enableCaption: false,
+        showControls: false,
+        showFullscreenButton: true,
+        // desktopMode: false,
+        privacyEnhanced: true,
+        useHybridComposition: true,
+        showVideoAnnotations: false,
+        loop: true,
+      ),
+    );
+    _controller.onEnterFullscreen = () {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+    };
   }
 
   @override
@@ -61,6 +84,19 @@ class _MainDesktopPageState extends State<MainDesktopPage> {
                           fontSize: 40, color: Colors.blueAccent),
                     ),
                   ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: 50 * 0.8 - _currOffset,
+              right: 50,
+              child: SizedBox(
+                width: 500,
+                child: YoutubePlayerControllerProvider( // Provides controller to all the widget below it.
+                  controller: _controller,
+                  child: YoutubePlayerIFrame(
+                    aspectRatio: 16 / 9,
+                  ),
                 ),
               ),
             ),
