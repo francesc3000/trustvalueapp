@@ -1,0 +1,34 @@
+{
+  "appTitle": "TrustValue",
+  "@appTitle": {
+    "description": "Nombre de la aplicación"
+  },
+  "companyName": "TrustValue",
+  "@companyName": {
+    "description": "Nombre de la compañia"
+  },
+  "whoHelpEnd": " ajuda a les empreses d'avui a convertir-se en les empreses del demà",
+  "@whoHelp": {
+    "whoHelpEnd": "Who help end text"
+  },
+  "whoWeAre": "Som una empresa de solucions basades a la Blockchain. Li apropem els contractes intel·ligents, NFT i Rastreig de Negoci.",
+  "@whoWeAre": {
+    "description": "Who we are"
+  },
+  "whatWeDo": "Els nostres productes recolzats per la Blockchain són fiables, robustos i fàcils d'utilitzar.",
+  "@whatWeDo": {
+    "description": "What do we do"
+  },
+  "sendUs": "Pot enviar-nos els seus comentaris o preguntes a ",
+  "@sendUs": {
+    "description": "Send us title"
+  },
+  "topic": "Tinc una pregunta",
+  "@topic": {
+    "description": "I have a question"
+  },
+  "infoEmail": "info@trustvalue.io",
+  "@infoEmail": {
+    "description": "info email"
+  }
+}

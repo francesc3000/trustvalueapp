@@ -1,0 +1,34 @@
+{
+  "appTitle": "TrustValue",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "companyName": "TrustValue",
+  "@companyName": {
+    "description": "Company Name"
+  },
+  "whoHelpEnd": " helps the companies of today to become the companies of tomorrow",
+  "@whoHelp": {
+    "whoHelpEnd": "Who help end text"
+  },
+  "whoWeAre": "We are a Blockchain-based solutions company. We bring you smart contracts, NFT and Business Tracking.",
+  "@whoWeAre": {
+    "description": "Who we are"
+  },
+  "whatWeDo": "Our Blockchain-backed products are reliable, robust and user-friendly.",
+  "@whatWeDo": {
+    "description": "What do we do"
+  },
+  "sendUs": "Send us your comments or questions at ",
+  "@sendUs": {
+    "description": "Send us title"
+  },
+  "topic": "I have a question",
+  "@topic": {
+    "description": "I have a question"
+  },
+  "infoEmail": "info@trustvalue.io",
+  "@infoEmail": {
+    "description": "info email"
+  }
+}
