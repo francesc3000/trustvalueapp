@@ -82,7 +82,7 @@ class _MainMobilePageState extends State<MainMobilePage> {
                       TextSpan(
                         text: AppLocalizations.of(context)!.whoHelpEnd,
                         style: GoogleFonts.montserrat(
-                            fontSize: 30, color: Colors.blueAccent),
+                            fontSize: 30, color: Colors.white),
                       ),
                     ],
                   ),
@@ -158,7 +158,7 @@ class _MainMobilePageState extends State<MainMobilePage> {
                           child: Text(
                             AppLocalizations.of(context)!.whatWeDo,
                             style: GoogleFonts.montserrat(
-                                fontSize: 30, color: Colors.blueAccent),
+                                fontSize: 30, color: Colors.white),
                           ),
                         ),
                       ),

@@ -81,7 +81,7 @@ class _MainDesktopPageState extends State<MainDesktopPage> {
                     TextSpan(
                       text: AppLocalizations.of(context)!.whoHelpEnd,
                       style: GoogleFonts.montserrat(
-                          fontSize: 40, color: Colors.blueAccent),
+                          fontSize: 40, color: Colors.white),
                     ),
                   ],
                 ),
@@ -169,7 +169,7 @@ class _MainDesktopPageState extends State<MainDesktopPage> {
                           child: Text(
                             AppLocalizations.of(context)!.whatWeDo,
                             style: GoogleFonts.montserrat(
-                                fontSize: 40, color: Colors.blueAccent),
+                                fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
