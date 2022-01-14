@@ -1,291 +1,277 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pistiscore/pistiscore.dart';
+import 'package:pistiscore/pistiscore_route.dart';
+import 'package:trustvalueapp/src/bloc/event/main_event.dart';
+import 'package:trustvalueapp/src/bloc/main_bloc.dart';
+import 'package:trustvalueapp/src/bloc/state/main_state.dart';
+import 'package:trustvalueapp/src/page/main/main_basic_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class MainMobilePage extends StatefulWidget {
-  const MainMobilePage({required Key? key}) : super(key: key);
+class MainMobilePage extends MainBasicPage {
+  const MainMobilePage(String title, AppRouterDelegate appRouterDelegate,
+      {Key? key})
+      : super(title, appRouterDelegate, key: key);
 
   @override
-  _MainMobilePageState createState() => _MainMobilePageState();
-}
-
-class _MainMobilePageState extends State<MainMobilePage> {
-  late ScrollController _scrollController;
-  late YoutubePlayerController _controller;
-
-  double get _imgHeight => MediaQuery.of(context).size.height;
-  double get _imageWidth => MediaQuery.of(context).size.width;
-
-  double _currOffset = 0.0;
-
-  void get _refresh => setState(() {});
-
-  @override
-  void initState() {
-    _scrollController = ScrollController();
-    super.initState();
-
-    _controller = YoutubePlayerController(
-      initialVideoId: 'MRMPofkN3pM',
-      params: const YoutubePlayerParams(
-        enableCaption: false,
-        showControls: false,
-        showFullscreenButton: true,
-        desktopMode: false,
-        privacyEnhanced: true,
-        useHybridComposition: true,
-        showVideoAnnotations: false,
-      ),
-    );
-    _controller.onEnterFullscreen = () {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
-    };
-  }
+  Widget? drawerMenu(BuildContext context) => Drawer(
+        child: SizedBox(
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text("Menu"),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  GestureDetector(
+                    child: const Text("Pistis"),
+                    onTap: () => routerDelegate.pushPage(name: "/pistisPage"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: NotificationListener<ScrollNotification>(
-        onNotification: _handleScrollNotification,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: -0.25 * _currOffset, // -ve as we want to scroll upwards
-              child: Image.asset(
-                'assets/images/768.png',
-                fit: BoxFit.fitHeight,
+  Widget body(BuildContext context) {
+    double _imgHeight = MediaQuery.of(context).size.height;
+    double _imageWidth = MediaQuery.of(context).size.width;
+    late ScrollController _scrollController;
+    late YoutubePlayerController _youtubePlayerController;
+    double _currOffset = 0.0;
+    bool _loading = false;
+    bool Function(ScrollNotification)? _handleScrollNotification;
+
+    return BlocBuilder<MainBloc, MainState>(
+      builder: (context, state) {
+        if (state is MainInitState) {
+          _loading = true;
+          BlocProvider.of<MainBloc>(context).add(FetchInitialDataEvent());
+        } else if (state is UploadMainFields) {
+          _loading = false;
+          _scrollController = state.scrollController;
+          _youtubePlayerController = state.youtubePlayerController;
+          _currOffset = state.currOffset;
+          _handleScrollNotification = state.handleScrollNotification;
+        } else if (state is MainStateError) {
+          CustomSnackBar().show(context: context, message: state.message);
+        }
+
+        if (_loading) {
+          return const CustomProgressIndicator();
+        }
+
+        return NotificationListener<ScrollNotification>(
+          onNotification: _handleScrollNotification,
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                top: -0.25 * _currOffset, // -ve as we want to scroll upwards
+                child: Image.asset(
+                  'assets/images/768.png',
+                  fit: BoxFit.fitHeight,
+                  width: _imageWidth,
+                  height: _imgHeight,
+                ),
+              ),
+              Positioned(
+                top: 50 * 0.8 - _currOffset,
+                // left: 50,
                 width: _imageWidth,
-                height: _imgHeight,
-              ),
-            ),
-            Positioned(
-              top: 50 * 0.8 - _currOffset,
-              // left: 50,
-              width: _imageWidth,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RichText(
-                  text:
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.companyName,
-                    style: GoogleFonts.montserrat(
-                        fontSize: 35, color: const Color.fromRGBO(1, 155, 107, 1)),
-                    children: [
-                      TextSpan(
-                        text: AppLocalizations.of(context)!.whoHelpEnd,
-                        style: GoogleFonts.montserrat(
-                            fontSize: 30, color: Colors.white),
-                      ),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(
+                    text: TextSpan(
+                      text: AppLocalizations.of(context)!.companyName,
+                      style: GoogleFonts.montserrat(
+                          fontSize: 35,
+                          color: const Color.fromRGBO(1, 155, 107, 1)),
+                      children: [
+                        TextSpan(
+                          text: AppLocalizations.of(context)!.whoHelpEnd,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 30, color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: _imgHeight * 0.8 -
-                  _currOffset, // IMP otherwise goes on top...
-              left: 0.0,
-              right: 0.0,
-              height: _imgHeight * 0.2,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: const <double>[0, 1],
-                    colors: [Colors.indigo.withOpacity(0), Colors.indigo],
+              Positioned(
+                top: _imgHeight * 0.8 - _currOffset,
+                // IMP otherwise goes on top...
+                left: 0.0,
+                right: 0.0,
+                height: _imgHeight * 0.2,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: const <double>[0, 1],
+                      colors: [Colors.indigo.withOpacity(0), Colors.indigo],
+                    ),
                   ),
+                  child: const SizedBox(width: double.infinity),
                 ),
-                child: const SizedBox(width: double.infinity),
               ),
-            ),
-            ListView(
-              cacheExtent: 100.0,
-              addAutomaticKeepAlives: false,
-              controller: _scrollController,
-              children: <Widget>[
-                SizedBox(height: _imgHeight),
-                Container(
-                  color: Colors.white,
-                  width: _imageWidth,
-                  height: _imgHeight,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            AppLocalizations.of(context)!.whoWeAre,
-                            style: GoogleFonts.montserrat(
-                                fontSize: 30, color: Colors.blueAccent),
+              ListView(
+                cacheExtent: 100.0,
+                addAutomaticKeepAlives: false,
+                controller: _scrollController,
+                children: <Widget>[
+                  SizedBox(height: _imgHeight),
+                  Container(
+                    color: Colors.white,
+                    width: _imageWidth,
+                    height: _imgHeight,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              AppLocalizations.of(context)!.whoWeAre,
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 30, color: Colors.blueAccent),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Image.asset('assets/images/191.png'),
-                      ),
-                    ],
+                        Expanded(
+                          flex: 1,
+                          child: Image.asset('assets/images/191.png'),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.white),
+                  const SizedBox(
+                    height: 20.0,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.white),
+                    ),
                   ),
-                ),
-                Container(
-                  color: const Color.fromRGBO(124, 54, 153, 1),
-                  width: _imageWidth,
-                  height: _imgHeight,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            AppLocalizations.of(context)!.whatWeDo,
-                            style: GoogleFonts.montserrat(
-                                fontSize: 30, color: Colors.white),
+                  Container(
+                    color: const Color.fromRGBO(124, 54, 153, 1),
+                    width: _imageWidth,
+                    height: _imgHeight,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              AppLocalizations.of(context)!.whatWeDo,
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 30, color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Image.asset('assets/images/345.png'),
-                      ),
-                    ],
+                        Expanded(
+                          flex: 1,
+                          child: Image.asset('assets/images/345.png'),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.white),
+                  const SizedBox(
+                    height: 20.0,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.white),
+                    ),
                   ),
-                ),
-                Container(
-                  color: Colors.white,
-                  width: _imageWidth / 2,
-                  height: _imgHeight / 2,
-                  child: SizedBox(
+                  Container(
+                    color: Colors.white,
                     width: _imageWidth / 2,
                     height: _imgHeight / 2,
-                    child: YoutubePlayerControllerProvider( // Provides controller to all the widget below it.
-                      controller: _controller,
-                      child: YoutubePlayerIFrame(
-                        aspectRatio: 16 / 9,
+                    child: SizedBox(
+                      width: _imageWidth / 2,
+                      height: _imgHeight / 2,
+                      child: YoutubePlayerControllerProvider(
+                        // Provides controller to all the widget below it.
+                        controller: _youtubePlayerController,
+                        child: const YoutubePlayerIFrame(
+                          aspectRatio: 16 / 9,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: _contactData(context),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(124, 54, 153, 1),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: _contactData(context),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  // void _scrollEventListener() {
-  //   setState(() {
-  //     if (_scrollController.hasClients) {
-  //       _currOffset = _scrollController.offset;
-  //     }
-  //   });
-  //   print('CURR OFFSET >>>> $_currOffset');
-  //   // print('${_scrollController.hasClients}');
-  //   // print('${_scrollController.position.maxScrollExtent}');
-  //   // print('${_scrollController.position.outOfRange}');
-  // }
-
-  bool _handleScrollNotification(ScrollNotification notification) {
-    if (notification is ScrollUpdateNotification) {
-      // print('>>>>>Scroll ${notification.scrollDelta}');
-      _currOffset = notification.metrics.pixels;
-    }
-
-    _refresh;
-    return false;
-  }
-
-  Widget _contactData(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SelectableText.rich(
-          TextSpan(
-            text: AppLocalizations.of(context)!.sendUs,
-            style:
-            GoogleFonts.montserrat(fontSize: 15, color: Colors.blueAccent),
-            children: [
-              TextSpan(
-                text: AppLocalizations.of(context)!.infoEmail,
-                style: GoogleFonts.montserrat(
-                  fontSize: 15,
-                  color: const Color.fromRGBO(0, 72, 164, 1),
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () async {
-                    final Uri params = Uri(
-                      scheme: 'mailto',
-                      path: AppLocalizations.of(context)!.infoEmail,
-                      query:
-                      // 'subject=App Feedback&body=App Version 3.23',
-                      'subject=' + AppLocalizations.of(context)!.topic,
-                    );
-
-                    var url = params.toString();
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
+                  const SizedBox(
+                    height: 20.0,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(124, 54, 153, 1),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ),
-        Text(
-          AppLocalizations.of(context)!.companyName + "® 2022",
-          style: GoogleFonts.montserrat(
-              fontSize: 15,
-              color: Colors.blueAccent
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
+
+  Widget _contactData(BuildContext context) => Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SelectableText.rich(
+            TextSpan(
+              text: AppLocalizations.of(context)!.sendUs,
+              style: GoogleFonts.montserrat(
+                  fontSize: 15, color: Colors.blueAccent),
+              children: [
+                TextSpan(
+                  text: AppLocalizations.of(context)!.infoEmail,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 15,
+                    color: const Color.fromRGBO(0, 72, 164, 1),
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      final Uri params = Uri(
+                        scheme: 'mailto',
+                        path: AppLocalizations.of(context)!.infoEmail,
+                        query:
+                            // 'subject=App Feedback&body=App Version 3.23',
+                            'subject=${AppLocalizations.of(context)!.topic}',
+                      );
+
+                      var url = params.toString();
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                ),
+              ],
+            ),
+          ),
+          Text(
+            "${AppLocalizations.of(context)!.companyName}® 2022",
+            style:
+                GoogleFonts.montserrat(fontSize: 15, color: Colors.blueAccent),
+          ),
+        ],
+      );
 }

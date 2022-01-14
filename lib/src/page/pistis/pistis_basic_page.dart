@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pistiscore/pistiscore.dart';
 import 'package:pistiscore/pistiscore_route.dart';
 
-abstract class MainBasicPage extends BasicPage {
-  const MainBasicPage(String title, AppRouterDelegate appRouterDelegate,
+abstract class PistisBasicPage extends BasicPage {
+  const PistisBasicPage(String title, AppRouterDelegate appRouterDelegate,
       {Key? key})
       : super(title, appRouterDelegate, key: key);
 
   @override
   PreferredSizeWidget? appBar(BuildContext context, {required String title}) =>
-      null;
+      AppBar();
 
   @override
   Widget? drawerMenu(BuildContext context) => null;

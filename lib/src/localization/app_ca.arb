@@ -30,5 +30,73 @@
   "infoEmail": "info@trustvalue.io",
   "@infoEmail": {
     "description": "info email"
+  },
+  "productNameLabel": "Nom",
+  "@productNameLabel": {
+    "description": "product Name Label"
+  },
+  "productModelLabel": "Model",
+  "@productModelLabel": {
+    "description": "product Model Label"
+  },
+  "productBatchLabel": "Lot",
+  "@productBatchLabel": {
+    "description": "product Batch Label"
+  },
+  "productSerialNLabel": "Numero de Serie",
+  "@productSerialNLabel": {
+    "description": "product Serial Number Label"
+  },
+  "bomLabel": "Llista de Materials",
+  "@bomLabel": {
+    "description": "bom Label"
+  },
+  "bom1": "Pólvora",
+  "@bom1": {
+    "description": "bom 1"
+  },
+  "bom2": "Metxa",
+  "@bom2": {
+    "description": "bom 2"
+  },
+  "bom3": "Cartró",
+  "@bom3": {
+    "description": "bom 3"
+  },
+  "trackLabel": "Seguiment",
+  "@trackLabel": {
+    "description": "track Label"
+  },
+  "fromLabel": "Des de",
+  "@fromLabel": {
+    "description": "From Label"
+  },
+  "toLabel": "cap a",
+  "@toLabel": {
+    "description": "To Label"
+  },
+  "place1": "Almacén Noroeste",
+  "@place1": {
+    "description": "Place 1 Label"
+  },
+  "place2": "Almacén Sud",
+  "@place2": {
+    "description": "Place 2 Label"
+  },
+  "place3": "Lisbon Store",
+  "@place3": {
+    "description": "Place 3 Label"
+  },
+  "send2Pistis": "Enviar a Pistis",
+  "@send2Pistis": {
+    "description": "Enviar a Pistis"
+  },
+  "scanQR": "Pots escanejar el codi *QR o a través de l'enllaç",
+  "@scanQR": {
+    "description": "Scan QR"
+  },
+  "here": "aquí",
+  "@here": {
+    "description": "here"
   }
 }
