@@ -6,6 +6,10 @@ class PistisEventEmpty extends PistisEvent {
 }
 
 class FetchInitialDataEvent extends PistisEvent {
+  final List<Object> carrousel;
+  final String productName;
+
+  FetchInitialDataEvent(this.carrousel, this.productName);
   @override
   String toString() => 'FetchInitialData Event';
 }
@@ -35,6 +39,9 @@ class CarrouselEndEvent extends PistisEvent {
 }
 
 class CarrouselResultEvent extends PistisEvent {
+  final int carrouselIndex;
+
+  CarrouselResultEvent(this.carrouselIndex);
   @override
   String toString() => 'CarrouselResult Event';
 }

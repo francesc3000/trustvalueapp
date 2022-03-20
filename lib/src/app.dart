@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pistiscore/pistiscore_route.dart';
 import 'package:trustvalueapp/src/route/app_route_information_parser.dart';
 import 'package:uni_links/uni_links.dart';
@@ -90,7 +91,8 @@ class _AppState extends State<App> {
     // Define a function to handle named routes in order to support
     // Flutter web url navigation and deep linking.
     // onGenerateRoute: generateRoute,
-    theme: ThemeData(primaryColor: Colors.lightGreen),
+    theme: ThemeData(primaryColor: Colors.lightGreen,
+    fontFamily: GoogleFonts.montserrat().fontFamily,),
     // initialRoute: '/',
     // navigatorKey: navigationService.navigatorKey,
     routerDelegate: routerDelegate,

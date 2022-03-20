@@ -3,6 +3,14 @@
   "@appTitle": {
     "description": "The title of the application"
   },
+  "pistis": "Pistis",
+  "@pistis": {
+    "description": "The title of the pistis product"
+  },
+  "blockchain": "Blockchain",
+  "@blockchain": {
+    "description": "Blockchain"
+  },
   "companyName": "TrustValue",
   "@companyName": {
     "description": "Company Name"
@@ -19,7 +27,7 @@
   "@whatWeDo": {
     "description": "What do we do"
   },
-  "sendUs": "Send us your comments or questions at ",
+  "sendUs": "You can contact us via ",
   "@sendUs": {
     "description": "Send us title"
   },
@@ -59,7 +67,7 @@
   "@bom2": {
     "description": "bom 2"
   },
-  "bom3": "Cardboard",
+  "bom3": "Steel",
   "@bom3": {
     "description": "bom 3"
   },
@@ -87,9 +95,9 @@
   "@place3": {
     "description": "Place 3 Label"
   },
-  "send2Pistis": "Send to Pistis",
+  "send2Pistis": "Submit to Pistis",
   "@send2Pistis": {
-    "description": "Send to Pistis"
+    "description": "Submit to Pistis"
   },
   "scanQR": "You can scan the QR code or via the link",
   "@scanQR": {
@@ -98,5 +106,53 @@
   "here": "here",
   "@here": {
     "description": "here"
+  },
+  "productName": "Pistis Rocket",
+  "@productName": {
+    "description": "Product Name"
+  },
+  "slide0": "Click Submit Button to start the Demo",
+  "@slide0": {
+    "description": "slide 0"
+  },
+  "slide1": "The product has been sent to Pistis and is being incorporated into the Blockchain.",
+  "@slide1": {
+    "description": "slide 1"
+  },
+  "slide2": "This means that your product information will remain unchanged forever",
+  "@slide2": {
+    "description": "slide 2"
+  },
+  "slide3": "This gives your customers confidence that the product in their hands is original and reliable",
+  "@slide3": {
+    "description": "slide 3"
+  },
+  "slide4": "A secure QR code has been generated where you can navigate to view your product information",
+  "@slide4": {
+    "description": "slide 4"
+  },
+  "pistisDemoTitle": "Welcome to the TrustValue Lab!",
+  "@pistisDemoTitle": {
+    "description": "Pistis Demo Title"
+  },
+  "pistisDemoDesc1": "Here you can try",
+  "@pistisDemoDesc1": {
+    "description": "Pistis Demo Desc1"
+  },
+  "pistisDemoDesc2": "our solution for the verification and product tracking supported in the",
+  "@pistisDemoDesc2": {
+    "description": "Pistis Demo Desc2"
+  },
+  "pistisDemoDesc3": "The example product is a rocket. You can rename it and make it your own",
+  "@pistisDemoDesc3": {
+    "description": "Pistis Demo Desc3"
+  },
+  "productNameError": "Product name cannot be empty",
+  "@productNameError": {
+    "description": "product Name Error"
+  },
+  "refreshPistis": "Refresh",
+  "@refreshPistis": {
+    "description": "Refresh Pistis"
   }
 }

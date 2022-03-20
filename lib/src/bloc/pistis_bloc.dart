@@ -16,11 +16,12 @@ class PistisBloc extends Bloc<PistisEvent, PistisState> {
   String batch = "";
   String serialNumber = "";
   bool isProductSend = false;
-  late Product product;
+  Product? product;
   String? qrLink;
   List<Object> carrousel = [];
   bool isCarrouselOn = false;
   bool carrouselLinkShow = false;
+  int carrouselIndex = 0;
 
   PistisBloc(this.factoryService) : super(PistisInitState());
 
@@ -34,12 +35,21 @@ class PistisBloc extends Bloc<PistisEvent, PistisState> {
   @override
   Stream<PistisState> mapEventToState(PistisEvent event) async* {
     if (event is PistisEventEmpty) {
+      product = null;
+      qrLink = null;
       isProductSend = false;
       isCarrouselOn = false;
       carrouselLinkShow = false;
+      carrouselIndex = 0;
       yield _uploadPistisFields();
     } else if (event is FetchInitialDataEvent) {
-      productName = "Pistis";
+      product = null;
+      qrLink = null;
+      isProductSend = false;
+      isCarrouselOn = false;
+      carrouselLinkShow = false;
+      carrouselIndex = 0;
+      productName = event.productName;
       model =
           "M${_rnd.nextInt(10000)}${getRandomString(2)}"
           "${_rnd.nextInt(100)}";
@@ -50,10 +60,7 @@ class PistisBloc extends Bloc<PistisEvent, PistisState> {
           "SN${_rnd.nextInt(100000)}${getRandomString(1)}"
           "${_rnd.nextInt(1)}";
 
-      carrousel.add("Se ha enviado el producto a Pistis y se esta incorporando a la Blockchain");
-      carrousel.add("Esto quiere decir que la información de su producto permanecerá inalterable para siempre");
-      carrousel.add("Esto da al confianza a sus clientes que el producto que tienen entre manos es original y confiable");
-      carrousel.add("Algo más");
+      carrousel = event.carrousel;
 
       yield _uploadPistisFields();
     } else if (event is NewProductEvent) {
@@ -124,11 +131,11 @@ class PistisBloc extends Bloc<PistisEvent, PistisState> {
             id: -3,
             name: event.bom3,
             date: DateTime.now().subtract(const Duration(days: 465)),
-            address: bom2Address);
+            address: bom1Address);
 
         features.add(feature1);
-        features.add(feature2);
         features.add(feature3);
+        features.add(feature2);
 
         //Certificates
         Certificate certificate1 = Certificate(-1, ISO.iso99887,
@@ -155,6 +162,7 @@ class PistisBloc extends Bloc<PistisEvent, PistisState> {
         Trace trace3 = Trace(
             id: -3,
             inputDate: DateTime.now().subtract(const Duration(days: 8)),
+            // outputDate: DateTime.now().subtract(const Duration(days: 2)),
             outputDate: null,
             address: place3Address);
 
@@ -176,12 +184,12 @@ class PistisBloc extends Bloc<PistisEvent, PistisState> {
 
         isProductSend = true;
         isCarrouselOn = true;
-        yield _uploadPistisFields();
+        // yield _uploadPistisFields();
 
         await factoryService.authService
-            .loginWithUsernameAndPassword("test", "1234");
+            .loginWithUsernameAndPassword("webTest", "1234");
         product =
-            await factoryService.productService.saveAndPublishProduct(product);
+            await factoryService.productService.saveAndPublishProduct(product!);
 
         yield _uploadPistisFields();
       } catch (error) {
@@ -196,21 +204,23 @@ class PistisBloc extends Bloc<PistisEvent, PistisState> {
         if (isCarrouselOn){
           qrLink =
           await factoryService.productService
-              .getProductQRCodeString(product.id);
+              .getProductQRCodeString(product!.id);
           Uint8List qrImage =
-          await factoryService.productService.getProductQRCode(product.id);
+          await factoryService.productService.getProductQRCode(product!.id);
           carrousel.add(qrImage);
+          carrouselIndex = 5;
           yield _uploadPistisFields();
         }
       } catch (error) {
-        yield error is PistisStateError
-            ? PistisStateError(error.message)
-            : PistisStateError('Algo fue mal!');
+        // carrouselIndex = 3;
+        // yield _uploadPistisFields();
       }
     } else if (event is CarrouselResultEvent) {
+      carrouselIndex = event.carrouselIndex;
       isCarrouselOn = false;
       yield _uploadPistisFields();
     } else if (event is CarrouselLinkEvent) {
+      carrouselIndex = 4;
       carrouselLinkShow = true;
       yield _uploadPistisFields();
     }
@@ -226,5 +236,6 @@ class PistisBloc extends Bloc<PistisEvent, PistisState> {
       carrousel: carrousel,
       isCarrouselOn: isCarrouselOn,
       carrouselLinkShow: carrouselLinkShow,
+      carrouselIndex: carrouselIndex,
   );
 }

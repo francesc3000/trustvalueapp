@@ -3,6 +3,14 @@
   "@appTitle": {
     "description": "Nombre de la aplicación"
   },
+  "pistis": "Pistis",
+  "@pistis": {
+    "description": "The title of the pistis product"
+  },
+  "blockchain": "Blockchain",
+  "@blockchain": {
+    "description": "Blockchain"
+  },
   "companyName": "TrustValue",
   "@companyName": {
     "description": "Nombre de la compañia"
@@ -19,7 +27,7 @@
   "@whatWeDo": {
     "description": "What do we do"
   },
-  "sendUs": "Pot enviar-nos els seus comentaris o preguntes a ",
+  "sendUs": "Ens pot contactar a través de ",
   "@sendUs": {
     "description": "Send us title"
   },
@@ -59,7 +67,7 @@
   "@bom2": {
     "description": "bom 2"
   },
-  "bom3": "Cartró",
+  "bom3": "Acer",
   "@bom3": {
     "description": "bom 3"
   },
@@ -98,5 +106,53 @@
   "here": "aquí",
   "@here": {
     "description": "here"
+  },
+  "productName": "Coet Pistis",
+  "@productName": {
+    "description": "Product Name"
+  },
+  "slide0": "Pots pulsar Enviar per a començar la Demo",
+  "@slide0": {
+    "description": "slide 0"
+  },
+  "slide1": "S'ha enviat el producte a Pistis i s'esta incorporant a la Blockchain",
+  "@slide1": {
+    "description": "slide 1"
+  },
+  "slide2": "Això vol dir que l'información del seu producte romandrà inalterable per sempre",
+  "@slide2": {
+    "description": "slide 2"
+  },
+  "slide3": "Això dona la confiança als seus clients que el producte que tenen entre mans és original i confiable",
+  "@slide3": {
+    "description": "slide 3"
+  },
+  "slide4": "S'ha generat un codi QR segur a on podrà navegar i veure l'información del seu producte",
+  "@slide4": {
+    "description": "slide 4"
+  },
+  "pistisDemoTitle": "Benvingut al Laboratori de TrustValue!",
+  "@pistisDemoTitle": {
+    "description": "Pistis Demo Title"
+  },
+  "pistisDemoDesc1": "Aquí podràs provar",
+  "@pistisDemoDesc1": {
+    "description": "Pistis Demo Desc1"
+  },
+  "pistisDemoDesc2": "la nostra solució per a la verificació i traçabilitat de productes recolzats a la",
+  "@pistisDemoDesc2": {
+    "description": "Pistis Demo Desc2"
+  },
+  "pistisDemoDesc3": "El producte exemple és un coet. Pots canviar-li el nom i fer-lo teu",
+  "@pistisDemoDesc3": {
+    "description": "Pistis Demo Desc3"
+  },
+  "productNameError": "El nom del product no pot quedar buit",
+  "@productNameError": {
+    "description": "product Name Error"
+  },
+  "refreshPistis": "Refrescar",
+  "@refreshPistis": {
+    "description": "Refresh Pistis"
   }
 }

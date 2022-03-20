@@ -15,6 +15,7 @@ class UploadPistisFields extends PistisState {
   final List<Object> carrousel;
   final bool isCarrouselOn;
   final bool carrouselLinkShow;
+  final int carrouselIndex;
 
   UploadPistisFields(
       {required this.productName,
@@ -25,7 +26,8 @@ class UploadPistisFields extends PistisState {
       required this.qrLink,
       required this.carrousel,
       required this.isCarrouselOn,
-      required this.carrouselLinkShow});
+      required this.carrouselLinkShow,
+      required this.carrouselIndex});
   @override
   String toString() => 'UploadPistisFields State';
 }

@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pistiscore/pistiscore.dart';
 import 'package:pistiscore/pistiscore_route.dart';
@@ -35,9 +36,12 @@ class PistisDesktopPage extends PistisBasicPage {
           String? qrLink;
           bool isCarrouselOn = false;
           bool carrouselLinkShow = false;
+          int carrouselIndex = 0;
 
           if (state is PistisInitState) {
-            BlocProvider.of<PistisBloc>(context).add(FetchInitialDataEvent());
+            carrousel = _buildCarrousel(context);
+            BlocProvider.of<PistisBloc>(context).add(FetchInitialDataEvent(
+                carrousel, AppLocalizations.of(context)!.productName));
           } else if (state is UploadPistisFields) {
             productNameController.text = state.productName;
             productModelController.text = state.model;
@@ -48,40 +52,102 @@ class PistisDesktopPage extends PistisBasicPage {
             qrLink = state.qrLink;
             carrousel = state.carrousel;
             carrouselLinkShow = state.carrouselLinkShow;
+            carrouselIndex = state.carrouselIndex;
           } else if (state is PistisStateError) {
             CustomSnackBar().show(context: context, message: state.message);
             BlocProvider.of<PistisBloc>(context).add(PistisEventEmpty());
           }
 
-          return ListView(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: ProductData(
-                        productNameController,
-                        productModelController,
-                        productBatchController,
-                        productSerialNumberController),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: ProductOnPistis(
+          return Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.white, Colors.blue],
+              ),
+            ),
+            child: ListView(
+              children: [
+                _demoLabel(context),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: ProductData(
                           productNameController,
                           productModelController,
                           productBatchController,
-                          productSerialNumberController,
-                          isProductSend,
-                          qrLink,
-                          isCarrouselOn,
-                          carrousel,
-                          carrouselLinkShow)),
-                ],
-              ),
-            ],
+                          productSerialNumberController),
+                    ),
+                    Expanded(
+                        flex: 1,
+                        child: ProductOnPistis(
+                            productNameController,
+                            productModelController,
+                            productBatchController,
+                            productSerialNumberController,
+                            isProductSend,
+                            qrLink,
+                            isCarrouselOn,
+                            carrousel,
+                            carrouselLinkShow,
+                            carrouselIndex)),
+                  ],
+                ),
+              ],
+            ),
           );
         },
+      );
+
+  List<Object> _buildCarrousel(BuildContext context) {
+    List<Object> carrousel = [];
+    carrousel.add(AppLocalizations.of(context)!.slide1);
+    carrousel.add(AppLocalizations.of(context)!.slide2);
+    carrousel.add(AppLocalizations.of(context)!.slide3);
+    carrousel.add(AppLocalizations.of(context)!.slide4);
+
+    return carrousel;
+  }
+
+  Widget _demoLabel(context) => Padding(
+        padding: const EdgeInsets.only(top: 18.0, left: 20),
+        child: Text.rich(
+          TextSpan(
+            text: "${AppLocalizations.of(context)!.pistisDemoTitle}\n",
+            style: const TextStyle(fontSize: 30),
+            children: [
+              TextSpan(
+                  text: "${AppLocalizations.of(context)!.pistisDemoDesc1} ",
+                  style: const TextStyle(fontSize: 20),
+                  children: [
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.pistis,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          ", ${AppLocalizations.of(context)!.pistisDemoDesc2} ",
+                    ),
+                    TextSpan(
+                      text: "${AppLocalizations.of(context)!.blockchain}.\n",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),
+                    ),
+                  ]),
+              TextSpan(
+                  text: "${AppLocalizations.of(context)!.pistisDemoDesc3}.",
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ))
+            ],
+          ),
+        ),
       );
 }
 
@@ -110,7 +176,7 @@ class ProductData extends StatelessWidget {
                   decoration: BoxDecoration(border: Border.all()),
                   child: Column(
                     children: [
-                      TextField(
+                      TextFormField(
                         controller: productNameController,
                         decoration: InputDecoration(
                             labelText:
@@ -163,11 +229,27 @@ class ProductData extends StatelessWidget {
                           Text(
                             AppLocalizations.of(context)!.bomLabel,
                             style: const TextStyle(
+                                fontSize: 18,
                                 decoration: TextDecoration.underline),
                           ),
-                          Text(AppLocalizations.of(context)!.bom1),
-                          Text(AppLocalizations.of(context)!.bom2),
-                          Text(AppLocalizations.of(context)!.bom3),
+                          Text(
+                            "- ${AppLocalizations.of(context)!.bom1}",
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            "- ${AppLocalizations.of(context)!.bom2}",
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            "- ${AppLocalizations.of(context)!.bom3}",
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -183,28 +265,84 @@ class ProductData extends StatelessWidget {
                           Text(
                             AppLocalizations.of(context)!.trackLabel,
                             style: const TextStyle(
+                                fontSize: 18,
                                 decoration: TextDecoration.underline),
                           ),
                           Wrap(
                             children: [
-                              Text(AppLocalizations.of(context)!.fromLabel),
+                              Text(
+                                AppLocalizations.of(context)!.fromLabel,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
                               const Text(": "),
-                              Text(AppLocalizations.of(context)!.place1),
+                              Text(
+                                AppLocalizations.of(context)!.place1,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
                               const Text(" "),
-                              Text(AppLocalizations.of(context)!.toLabel),
+                              Text(
+                                AppLocalizations.of(context)!.toLabel,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
                               const Text(": "),
-                              Text(AppLocalizations.of(context)!.place2),
+                              Text(
+                                AppLocalizations.of(context)!.place2,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
                             ],
                           ),
                           Wrap(
                             children: [
-                              Text(AppLocalizations.of(context)!.fromLabel),
-                              const Text(": "),
-                              Text(AppLocalizations.of(context)!.place2),
-                              const Text(" "),
-                              Text(AppLocalizations.of(context)!.toLabel),
-                              const Text(": "),
-                              Text(AppLocalizations.of(context)!.place3),
+                              Text(
+                                AppLocalizations.of(context)!.fromLabel,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Text(
+                                ": ",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!.place2,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Text(
+                                " ",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!.toLabel,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Text(
+                                ": ",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!.place3,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -229,6 +367,7 @@ class ProductOnPistis extends StatelessWidget {
   final bool isCarrouselOn;
   final List<Object> carrousel;
   final bool carrouselLinkShow;
+  final int carrouselIndex;
 
   const ProductOnPistis(
       this.productNameController,
@@ -240,6 +379,7 @@ class ProductOnPistis extends StatelessWidget {
       this.isCarrouselOn,
       this.carrousel,
       this.carrouselLinkShow,
+      this.carrouselIndex,
       {Key? key})
       : super(key: key);
 
@@ -247,7 +387,7 @@ class ProductOnPistis extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
             child: Column(
               children: [
                 Container(
@@ -259,11 +399,11 @@ class ProductOnPistis extends StatelessWidget {
                       ? CarouselSlider(
                           options: CarouselOptions(
                             height: 400,
-                            initialPage: 0,
+                            initialPage: carrouselIndex,
                             enableInfiniteScroll: true,
                             reverse: false,
                             autoPlay: isCarrouselOn,
-                            autoPlayInterval: const Duration(seconds: 3),
+                            autoPlayInterval: const Duration(seconds: 5),
                             autoPlayAnimationDuration:
                                 const Duration(milliseconds: 800),
                             autoPlayCurve: Curves.fastOutSlowIn,
@@ -277,7 +417,7 @@ class ProductOnPistis extends StatelessWidget {
                               else if (index == 4)
                                 {
                                   BlocProvider.of<PistisBloc>(context)
-                                      .add(CarrouselResultEvent())
+                                      .add(CarrouselResultEvent(carrouselIndex))
                                 }
                             },
                             scrollDirection: Axis.horizontal,
@@ -289,9 +429,38 @@ class ProductOnPistis extends StatelessWidget {
                                   ))
                               .toList(),
                         )
-                      : const Center(
-                          child:
-                              Text("Envia el producto para empezar la Demo")),
+                      : Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: Text(AppLocalizations.of(context)!.slide0),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: ConstrainedBox(
+                                constraints: const BoxConstraints.expand(
+                                    width: double.infinity,
+                                    height: double.infinity),
+                                child: Image.asset(
+                                  "assets/images/astronauta.png",
+                                ),
+                              ),
+                              // child: FittedBox(
+                              //   fit: BoxFit.contain,
+                              //   child: Image.asset(
+                              //     "assets/images/astronauta.png",
+                              //   ),
+                              // ),
+                            ),
+                            const Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Icon(
+                                FontAwesomeIcons.arrowDown,
+                                size: 50,
+                              ),
+                            ),
+                          ],
+                        ),
                 ),
                 Visibility(
                   visible: carrouselLinkShow,
@@ -322,32 +491,47 @@ class ProductOnPistis extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: isProductSend
-                      ? null
-                      : () => BlocProvider.of<PistisBloc>(context)
-                              .add(NewProductEvent(
-                            productNameController.text,
-                            productModelController.text,
-                            productBatchController.text,
-                            productSerialNumberController.text,
-                            AppLocalizations.of(context)!.bom1,
-                            AppLocalizations.of(context)!.bom2,
-                            AppLocalizations.of(context)!.bom3,
-                            AppLocalizations.of(context)!.place1,
-                            AppLocalizations.of(context)!.place2,
-                            AppLocalizations.of(context)!.place3,
-                          )),
-                  child:
-                      // isProductSend
-                      //     ? const CustomProgressIndicator()
-                      //     :
-                      Text(AppLocalizations.of(context)!.send2Pistis),
+                  onPressed: carrouselLinkShow
+                      ? () {
+                          List<Object> newCarrousel = _buildCarrousel(context);
+                          BlocProvider.of<PistisBloc>(context).add(
+                              FetchInitialDataEvent(newCarrousel,
+                                  AppLocalizations.of(context)!.productName));
+                        }
+                      : isProductSend
+                          ? null
+                          : () => BlocProvider.of<PistisBloc>(context)
+                                  .add(NewProductEvent(
+                                productNameController.text,
+                                productModelController.text,
+                                productBatchController.text,
+                                productSerialNumberController.text,
+                                AppLocalizations.of(context)!.bom1,
+                                AppLocalizations.of(context)!.bom2,
+                                AppLocalizations.of(context)!.bom3,
+                                AppLocalizations.of(context)!.place1,
+                                AppLocalizations.of(context)!.place2,
+                                AppLocalizations.of(context)!.place3,
+                              )),
+                  child: carrouselLinkShow
+                      ? Text(AppLocalizations.of(context)!.refreshPistis)
+                      : Text(AppLocalizations.of(context)!.send2Pistis),
                 ),
               ],
             ),
           ),
         ],
       );
+
+  List<Object> _buildCarrousel(BuildContext context) {
+    List<Object> carrousel = [];
+    carrousel.add(AppLocalizations.of(context)!.slide1);
+    carrousel.add(AppLocalizations.of(context)!.slide2);
+    carrousel.add(AppLocalizations.of(context)!.slide3);
+    carrousel.add(AppLocalizations.of(context)!.slide4);
+
+    return carrousel;
+  }
 
   Widget _carrouselPageBuilder(BuildContext context, Object i) {
     Widget? widget;
@@ -374,17 +558,18 @@ class ProductOnPistis extends StatelessWidget {
                     ),
           errorBuilder: (BuildContext context, Object exception,
                   StackTrace? stackTrace) =>
-              const Text('No se pudo cargar '
-                  'la imagen'),
+              const Text('No se pudo cargar la imagen'),
         );
         BlocProvider.of<PistisBloc>(context).add(CarrouselLinkEvent());
         break;
-
       default:
-        widget = Center(
+        widget = Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            'text $i',
-            style: const TextStyle(fontSize: 16.0),
+            '$i',
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 17.0),
           ),
         );
     }

@@ -3,6 +3,14 @@
   "@appTitle": {
     "description": "Nombre de la aplicación"
   },
+  "pistis": "Pistis",
+  "@pistis": {
+    "description": "The title of the pistis product"
+  },
+  "blockchain": "Blockchain",
+  "@blockchain": {
+    "description": "Blockchain"
+  },
   "companyName": "TrustValue",
   "@companyName": {
     "description": "Nombre de la compañia"
@@ -19,7 +27,7 @@
   "@whatWeDo": {
     "description": "What do we do"
   },
-  "sendUs": "Puede enviarnos sus comentarios o preguntas a ",
+  "sendUs": "Puede contactarnos por ",
   "@sendUs": {
     "description": "Send us title"
   },
@@ -59,7 +67,7 @@
   "@bom2": {
     "description": "bom 2"
   },
-  "bom3": "Cartón",
+  "bom3": "Acero",
   "@bom3": {
     "description": "bom 3"
   },
@@ -98,5 +106,53 @@
   "here": "aquí",
   "@here": {
     "description": "here"
+  },
+  "productName": "Cohete Pistis",
+  "@productName": {
+    "description": "Product Name"
+  },
+  "slide0": "Pulsa sobre Enviar para empezar la Demo",
+  "@slide0": {
+    "description": "slide 0"
+  },
+  "slide1": "Se ha enviado el producto a Pistis y se esta incorporando a la Blockchain",
+  "@slide1": {
+    "description": "slide 1"
+  },
+  "slide2": "Esto quiere decir que la información de su producto permanecerá inalterable para siempre",
+  "@slide2": {
+    "description": "slide 2"
+  },
+  "slide3": "Esto da la confianza a sus clientes que el producto que tienen entre manos es original y confiable",
+  "@slide3": {
+    "description": "slide 3"
+  },
+  "slide4": "Se ha generado un código QR seguro donde podrá navegar para ver la información de su producto",
+  "@slide4": {
+    "description": "slide 4"
+  },
+  "pistisDemoTitle": "¡Bienvenido al Laboratorio de TrustValue!",
+  "@pistisDemoTitle": {
+    "description": "Pistis Demo Title"
+  },
+  "pistisDemoDesc1": "Aquí podrás probar",
+  "@pistisDemoDesc1": {
+    "description": "Pistis Demo Desc1"
+  },
+  "pistisDemoDesc2": "nuestra solución para la verificación y trazabilidad de productos respaldados en la",
+  "@pistisDemoDesc2": {
+    "description": "Pistis Demo Desc2"
+  },
+  "pistisDemoDesc3": "El producto de ejemplo es un cohete. Puedes cambiarle el nombre y hacerlo tuyo",
+  "@pistisDemoDesc3": {
+    "description": "Pistis Demo Desc3"
+  },
+  "productNameError": "El nombre del producto no puede estar vacío",
+  "@productNameError": {
+    "description": "product Name Error"
+  },
+  "refreshPistis": "Refrescar",
+  "@refreshPistis": {
+    "description": "Refresh Pistis"
   }
 }
