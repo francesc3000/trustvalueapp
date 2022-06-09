@@ -15,15 +15,15 @@
   "@companyName": {
     "description": "Nombre de la compañia"
   },
-  "whoHelpEnd": " ajuda a les empreses d'avui a convertir-se en les empreses del demà",
+  "whoHelpEnd": " ajuda a les entitats no lucratives a ser més transparents amb els seus donants i col·laboradors",
   "@whoHelp": {
     "whoHelpEnd": "Who help end text"
   },
-  "whoWeAre": "Som una empresa de solucions basades a la Blockchain. Li apropem els contractes intel·ligents, NFT i Rastreig de Negoci.",
+  "whoWeAre": "Som especialistes en traçabilitat i gràcies a la tecnologia *Blockchain les nostres dades són 100% segurs i veraços",
   "@whoWeAre": {
     "description": "Who we are"
   },
-  "whatWeDo": "Els nostres productes recolzats per la Blockchain són fiables, robustos i fàcils d'utilitzar.",
+  "whatWeDo": "Pistis és el nostre producte estrella, és una aplicació fiable, robusta i fàcil d'usar",
   "@whatWeDo": {
     "description": "What do we do"
   },
@@ -70,6 +70,14 @@
   "bom3": "Acer",
   "@bom3": {
     "description": "bom 3"
+  },
+  "serviceNameLabel": "Nom",
+    "@serviceNameLabel": {
+    "description": "product Name Label"
+  },
+  "serviceAmountLabel": "Quantitat",
+  "@serviceAmountLabel": {
+    "description": "service Amount Label"
   },
   "trackLabel": "Seguiment",
   "@trackLabel": {
@@ -139,20 +147,36 @@
   "@pistisDemoDesc1": {
     "description": "Pistis Demo Desc1"
   },
-  "pistisDemoDesc2": "la nostra solució per a la verificació i traçabilitat de productes recolzats a la",
+  "pistisDemoDesc2": "la nostra solució per a la verificació i traçabilitat de donacions recolzades a la Blockchain.",
   "@pistisDemoDesc2": {
     "description": "Pistis Demo Desc2"
   },
-  "pistisDemoDesc3": "El producte exemple és un coet. Pots canviar-li el nom i fer-lo teu",
+  "pistisDemoDesc3": "Vamos a simular una donación a la fundación TrustValue. Puedes cambiar el nombre y el importe",
   "@pistisDemoDesc3": {
     "description": "Pistis Demo Desc3"
   },
-  "productNameError": "El nom del product no pot quedar buit",
+  "productNameError": "El teu nom no pot quedar buit",
   "@productNameError": {
     "description": "product Name Error"
   },
   "refreshPistis": "Refrescar",
   "@refreshPistis": {
     "description": "Refresh Pistis"
+  },
+  "serviceTrack1": "El {date} es rep {amount}€",
+  "@serviceTrack1": {
+    "description": "Service track 1"
+  },
+  "serviceTrack2": "El {date} s'envien {amount}€ al projecte Alegria",
+  "@serviceTrack2": {
+    "description": "Service track 2"
+  },
+  "serviceTrack3": "El {date} s'envien {amount}€ a proyecto Eco",
+  "@serviceTrack3": {
+    "description": "Service track 3"
+  },
+  "trustUs": "Confien en nosaltres",
+  "@trustUs": {
+    "description": "Trust us"
   }
 }

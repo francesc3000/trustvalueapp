@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class DemoButton extends StatelessWidget {
+class ScreenButton extends StatelessWidget {
   final void Function()? onPressed;
-  final double size;
+  final String data;
+  final double height;
+  final double width;
   final double textSize;
-  const DemoButton(
-      {Key? key, required this.onPressed, this.size = 70, this.textSize = 18})
+  const ScreenButton(
+      this.data,
+      {Key? key,
+      required this.onPressed,
+      this.height = 50,
+      this.width = 70,
+      this.textSize = 18})
       : super(key: key);
 
   @override
@@ -14,7 +21,7 @@ class DemoButton extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           child: Text(
-            "PISTIS\nDEMO",
+            data,
             style: TextStyle(
               color: Colors.blue,
               fontSize: textSize,
@@ -22,11 +29,11 @@ class DemoButton extends StatelessWidget {
           ),
         ),
         style: ButtonStyle(
-          shape: MaterialStateProperty.all<CircleBorder>(
-            const CircleBorder(),
-          ),
+          // shape: MaterialStateProperty.all<CircleBorder>(
+          //   const CircleBorder(),
+          // ),
           minimumSize: MaterialStateProperty.all<Size>(
-            Size(size, size),
+            Size(width, height),
           ),
           elevation: MaterialStateProperty.all<double>(20),
           shadowColor: MaterialStateProperty.all<Color>(Colors.green),

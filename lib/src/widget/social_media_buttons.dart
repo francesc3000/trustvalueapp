@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SocialMediaButtons extends StatelessWidget {
   const SocialMediaButtons({Key? key}) : super(key: key);
@@ -41,8 +41,8 @@ class SocialMediaButtons extends StatelessWidget {
     );
 
     var url = params.toString();
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
       throw 'Could not launch $url';
     }
@@ -50,8 +50,8 @@ class SocialMediaButtons extends StatelessWidget {
 
   void _onTwitterPressed() async{
     var url = "https://twitter.com/trustvalue_io";
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
       throw 'Could not launch $url';
     }
@@ -59,8 +59,8 @@ class SocialMediaButtons extends StatelessWidget {
 
   void _onLinkedinPressed() async{
     var url = "https://www.linkedin.com/company/trustvalue/";
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
       throw 'Could not launch $url';
     }
@@ -68,8 +68,8 @@ class SocialMediaButtons extends StatelessWidget {
 
   void _onMediumPressed() async{
     var url = "https://trustvalue.medium.com/";
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
       throw 'Could not launch $url';
     }

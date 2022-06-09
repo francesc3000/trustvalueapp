@@ -14,41 +14,39 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   late YoutubePlayerController _youtubePlayerController;
   double _currOffset = 0.0;
 
-  MainBloc(this.factoryService) : super(MainInitState());
+  MainBloc(this.factoryService) : super(MainInitState()) {
+    on<MainEventEmpty>((event, emit) => emit(_uploadMainFields()));
+    on<FetchInitialDataEvent>(_fetchInitialDataEvent);
+  }
 
-  @override
-  Stream<MainState> mapEventToState(MainEvent event) async* {
-    if (event is MainEventEmpty) {
-      yield _uploadMainFields();
-    } else if (event is FetchInitialDataEvent) {
-      try {
-        _youtubePlayerController = YoutubePlayerController(
-          initialVideoId: 'MRMPofkN3pM',
-          params: const YoutubePlayerParams(
-            autoPlay: false,
-            enableCaption: false,
-            showControls: false,
-            showFullscreenButton: true,
-            desktopMode: false,
-            privacyEnhanced: true,
-            useHybridComposition: true,
-            showVideoAnnotations: false,
-          ),
-        );
-        _youtubePlayerController.onEnterFullscreen = () {
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.landscapeLeft,
-            DeviceOrientation.landscapeRight,
-          ]);
-        };
-        yield _uploadMainFields();
-        // }
-      } catch (error) {
-        yield error is MainStateError
-            ? MainStateError(error.message)
-            : MainStateError('Algo fue mal al cambiar la pestaña!');
-      }
-    }
+  void _fetchInitialDataEvent(FetchInitialDataEvent event, Emitter emit) {
+    try {
+      _youtubePlayerController = YoutubePlayerController(
+        initialVideoId: '3x57Btoi_wY',
+        params: const YoutubePlayerParams(
+          autoPlay: false,
+          enableCaption: false,
+          showControls: false,
+          showFullscreenButton: true,
+          desktopMode: false,
+          privacyEnhanced: true,
+          useHybridComposition: true,
+          showVideoAnnotations: false,
+        ),
+      );
+      _youtubePlayerController.onEnterFullscreen = () {
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight,
+        ]);
+      };
+      emit(_uploadMainFields());
+      // }
+    } catch (error) {
+      emit(error is MainStateError
+    ? MainStateError(error.message)
+        : MainStateError('Algo fue mal al cambiar la pestaña!'));
+  }
   }
 
   MainState _uploadMainFields() =>

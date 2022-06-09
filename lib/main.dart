@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppRouterDelegate routeService = AppRouterDelegateImpl();
   FactoryService _factoryService = FactoryService(routeService,
-      isAndroid: kIsWeb ? true : Platform.isAndroid);
+      isAndroid: kIsWeb ? false : Platform.isAndroid);
   AuthBloc _authBloc = AuthBloc(_factoryService, autologin: false);
 
   runApp(MultiBlocProvider(providers: [

@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 abstract class PistisEvent {}
 
 class PistisEventEmpty extends PistisEvent {
@@ -6,10 +8,9 @@ class PistisEventEmpty extends PistisEvent {
 }
 
 class FetchInitialDataEvent extends PistisEvent {
-  final List<Object> carrousel;
-  final String productName;
+  final BuildContext context;
 
-  FetchInitialDataEvent(this.carrousel, this.productName);
+  FetchInitialDataEvent(this.context);
   @override
   String toString() => 'FetchInitialData Event';
 }
@@ -33,6 +34,14 @@ class NewProductEvent extends PistisEvent {
   String toString() => 'NewProduct Event';
 }
 
+class NewServiceEvent extends PistisEvent {
+  final BuildContext context;
+
+  NewServiceEvent(this.context);
+  @override
+  String toString() => 'NewService Event';
+}
+
 class CarrouselEndEvent extends PistisEvent {
   @override
   String toString() => 'CarrouselEnd Event';
@@ -49,4 +58,20 @@ class CarrouselResultEvent extends PistisEvent {
 class CarrouselLinkEvent extends PistisEvent {
   @override
   String toString() => 'CarrouselLink Event';
+}
+
+class ServiceNameChangeEvent extends PistisEvent {
+  final String name;
+
+  ServiceNameChangeEvent(this.name);
+  @override
+  String toString() => 'ServiceNameChange Event';
+}
+
+class ServiceAmountChangeEvent extends PistisEvent {
+  final double amount;
+
+  ServiceAmountChangeEvent(this.amount);
+  @override
+  String toString() => 'ServiceNameChange Event';
 }

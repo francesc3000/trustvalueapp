@@ -15,15 +15,15 @@
   "@companyName": {
     "description": "Nombre de la compañia"
   },
-  "whoHelpEnd": " ayuda a las empresas de hoy a convertirse en las empresas del mañana",
+  "whoHelpEnd": " ayuda a las entidades no lucrativas a ser más transparentes con sus donantes y colaboradores",
   "@whoHelp": {
     "whoHelpEnd": "Who help end text"
   },
-  "whoWeAre": "Somos una empresa de soluciones basadas en Blockchain. Le acercamos los contratos inteligentes, NFT y Rastreo de Negocio.",
+  "whoWeAre": "Somos especialistas en trazabilidad y gracias a la tecnología Blockchain nuestros datos son 100% seguros y veraces",
   "@whoWeAre": {
     "description": "Who we are"
   },
-  "whatWeDo": "Nuestros productos respaldados por la Blockchain son fiables, robustos y fáciles de usar.",
+  "whatWeDo": "Pistis es nuestro producto estrella, es una aplicación fiable, robusta y fácil de usar",
   "@whatWeDo": {
     "description": "What do we do"
   },
@@ -70,6 +70,14 @@
   "bom3": "Acero",
   "@bom3": {
     "description": "bom 3"
+  },
+  "serviceNameLabel": "Nombre",
+    "@serviceNameLabel": {
+    "description": "service Name Label"
+  },
+  "serviceAmountLabel": "Cantidad",
+  "@serviceAmountLabel": {
+    "description": "service Amount Label"
   },
   "trackLabel": "Seguimiento",
   "@trackLabel": {
@@ -139,20 +147,36 @@
   "@pistisDemoDesc1": {
     "description": "Pistis Demo Desc1"
   },
-  "pistisDemoDesc2": "nuestra solución para la verificación y trazabilidad de productos respaldados en la",
+  "pistisDemoDesc2": "nuestra solución para la verificación y trazabilidad de donaciones respaldadas en la Blockchain.",
   "@pistisDemoDesc2": {
     "description": "Pistis Demo Desc2"
   },
-  "pistisDemoDesc3": "El producto de ejemplo es un cohete. Puedes cambiarle el nombre y hacerlo tuyo",
+  "pistisDemoDesc3": "Vamos a simular una donación a la fundación TrustValue. Puedes cambiar el nombre y el importe",
   "@pistisDemoDesc3": {
     "description": "Pistis Demo Desc3"
   },
-  "productNameError": "El nombre del producto no puede estar vacío",
+  "productNameError": "Tú nombre no puede estar vacío",
   "@productNameError": {
     "description": "product Name Error"
   },
   "refreshPistis": "Refrescar",
   "@refreshPistis": {
     "description": "Refresh Pistis"
+  },
+  "serviceTrack1": "El {date} se reciben {amount}€",
+  "@serviceTrack1": {
+    "description": "Service track 1"
+  },
+  "serviceTrack2": "El {date} se envían {amount}€ a proyecto Alegria",
+  "@serviceTrack2": {
+    "description": "Service track 2"
+  },
+  "serviceTrack3": "El {date} se envían {amount}€ a proyecto Eco",
+  "@serviceTrack3": {
+    "description": "Service track 3"
+  },
+  "trustUs": "Confían en nosotros",
+  "@trustUs": {
+    "description": "Trust us"
   }
 }

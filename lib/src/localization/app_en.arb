@@ -15,15 +15,15 @@
   "@companyName": {
     "description": "Company Name"
   },
-  "whoHelpEnd": " helps the companies of today to become the companies of tomorrow",
+  "whoHelpEnd": " helps nonprofits to be more transparent with their donors and supporters",
   "@whoHelp": {
     "whoHelpEnd": "Who help end text"
   },
-  "whoWeAre": "We are a Blockchain-based solutions company. We bring you smart contracts, NFT and Business Tracking.",
+  "whoWeAre": "We are specialists in traceability and thanks to Blockchain technology our data is 100% secure and truthful",
   "@whoWeAre": {
     "description": "Who we are"
   },
-  "whatWeDo": "Our Blockchain-backed products are reliable, robust and user-friendly.",
+  "whatWeDo": "Pistis is our flagship product, it is a reliable, robust and easy to use application",
   "@whatWeDo": {
     "description": "What do we do"
   },
@@ -70,6 +70,14 @@
   "bom3": "Steel",
   "@bom3": {
     "description": "bom 3"
+  },
+  "serviceNameLabel": "Name",
+    "@serviceNameLabel": {
+    "description": "service Name Label"
+  },
+  "serviceAmountLabel": "Amount",
+  "@serviceAmountLabel": {
+    "description": "service Amount Label"
   },
   "trackLabel": "Track",
   "@trackLabel": {
@@ -139,20 +147,90 @@
   "@pistisDemoDesc1": {
     "description": "Pistis Demo Desc1"
   },
-  "pistisDemoDesc2": "our solution for the verification and product tracking supported in the",
+  "pistisDemoDesc2": "is our solution for the verification and traceability of blockchain-backed donations.",
   "@pistisDemoDesc2": {
     "description": "Pistis Demo Desc2"
   },
-  "pistisDemoDesc3": "The example product is a rocket. You can rename it and make it your own",
+  "pistisDemoDesc3": "We are going to simulate a donation to the TrustValue Foundation. You can change the name and the amount",
   "@pistisDemoDesc3": {
     "description": "Pistis Demo Desc3"
   },
-  "productNameError": "Product name cannot be empty",
+  "productNameError": "Your name cannot be empty",
   "@productNameError": {
     "description": "product Name Error"
   },
   "refreshPistis": "Refresh",
   "@refreshPistis": {
     "description": "Refresh Pistis"
+  },
+  "serviceTrack1": "{amount}€ will be received on {date}",
+  "@serviceTrack1": {
+    "description": "Service track 1",
+    "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "d/M/y",
+                "isCustomDateFormat": "true"
+            },
+            "amount": {
+                "type": "double",
+                "format": "currency",
+                "example": "1000.00€",
+                "optionalParameters": {
+                    "decimalDigits": 2,
+                    "name": "EUR",
+                    "symbol": "€",
+                    "customPattern": "0.00"
+                }
+            }
+        }
+  },
+  "serviceTrack2": "On {date}, {amount}€ will be sent to the Alegria project",
+  "@serviceTrack2": {
+    "description": "Service track 2",
+    "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "d/M/y",
+                "isCustomDateFormat": "true"
+            },
+            "amount": {
+                "type": "double",
+                "format": "currency",
+                "example": "1000.00€",
+                "optionalParameters": {
+                    "decimalDigits": 2,
+                    "name": "EUR",
+                    "symbol": "€",
+                    "customPattern": "0.00"
+                }
+            }
+        }
+  },
+  "serviceTrack3": "On {date}, {amount}€ will be sent to the Eco project",
+  "@serviceTrack3": {
+    "description": "Service track 3",
+    "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "d/M/y",
+                "isCustomDateFormat": "true"
+            },
+            "amount": {
+                "type": "double",
+                "format": "currency",
+                "example": "1000.00€",
+                "optionalParameters": {
+                    "decimalDigits": 2,
+                    "name": "EUR",
+                    "symbol": "€",
+                    "customPattern": "0.00"
+                }
+            }
+        }
+  },
+  "trustUs": "Who trust us",
+  "@trustUs": {
+    "description": "Trust us"
   }
 }
